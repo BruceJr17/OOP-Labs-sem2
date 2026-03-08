@@ -1,0 +1,6 @@
+build/
+x64/
+*.out
+*.o
+*.user
+.vs/
