@@ -16,8 +16,7 @@ void MyString::free_buf() {
 // Default constructor: allocate a single-byte buffer holding just '\0'
 
 MyString::MyString() : buf(nullptr), len(0) {
-    buf = new char[1];
-    buf[0] = '\0';
+    // no allocation for empty string
 }
 
 MyString::MyString(const char* str) : buf(nullptr), len(0) {
@@ -31,8 +30,10 @@ MyString::MyString(const char* str) : buf(nullptr), len(0) {
 // same buffer - the second destructor would then free already-freed memory.
 
 MyString::MyString(const MyString& other) : buf(nullptr), len(other.len) {
-    buf = new char[len + 1];
-    memcpy(buf, other.buf, len + 1);
+  if (other.buf) {  
+     buf = new char[len + 1];
+     memcpy(buf, other.buf, len + 1);
+  }
 }
 
 // ------------------------------------------------------------------ destructor
@@ -43,8 +44,8 @@ MyString::~MyString() {
 
 // ------------------------------------------------------------------ element access
 
-char MyString::get(int i) const { return buf[i]; }
-void MyString::set(int i, char c) { buf[i] = c; }
+char MyString::get(int i) const { return buf ? buf[i] : '\0'; }
+void MyString::set(int i, char c) { if (buf) buf[i] = c; }
 
 int MyString::get_len() const { return len; }
 
@@ -60,7 +61,7 @@ void MyString::set_new_string(const char* str) {
 }
 
 void MyString::print() const {
-    cout << buf;
+    if (buf) cout << buf;
 }
 
 // Read a line of unknown length from stdin.
@@ -178,10 +179,10 @@ MyString operator+(const char* lhs, const MyString& rhs) {
 // ── comparison operators ──────────────────────────────────────────────────────
 // Task 1.4: lexicographic comparison using strcmp
 bool MyString::operator==(const MyString& other) const {
-    return strcmp(buf, other.buf) == 0;
+    return strcmp(buf ? buf : "", other.buf ? other.buf : "") == 0;
 }
 bool MyString::operator==(const char* str) const {
-    return strcmp(buf, str ? str : "") == 0;
+    return strcmp(buf ? buf : "", str ? str : "") == 0;
 }
 bool MyString::operator!=(const MyString& other) const {
     return !(*this == other);
@@ -190,16 +191,16 @@ bool MyString::operator!=(const char* str) const {
     return !(*this == str);
 }
 bool MyString::operator<(const MyString& other) const {
-    return strcmp(buf, other.buf) < 0;
+    return strcmp(buf ? buf : "", other.buf ? other.buf : "") < 0;
 }
 bool MyString::operator<(const char* str) const {
-    return strcmp(buf, str ? str : "") < 0;
+    return strcmp(buf ? buf :"", str ? str : "") < 0;
 }
 bool MyString::operator<=(const MyString& other) const {
-    return strcmp(buf, other.buf) <= 0;
+    return strcmp(buf ? buf : "", other.buf ? other.buf : "") <= 0;
 }
 bool MyString::operator<=(const char* str) const {
-    return strcmp(buf, str ? str : "") <= 0;
+    return strcmp(buf ? buf : "", str ? str : "") <= 0;
 }
 
 // global: "literal" == MyString  and  "literal" < MyString  etc.
@@ -225,7 +226,7 @@ char MyString::operator[](int i) const {
 // ── stream operators ──────────────────────────────────────────────────────────
 // Task 1.6: << prints the string, >> reads a line
 std::ostream& operator<<(std::ostream& os, const MyString& s) {
-    os << s.buf;
+    if (s.buf) os << s.buf;
     return os;
 }
 
