@@ -1,6 +1,7 @@
 #include "rect.h"
 #include <algorithm>
 using namespace std;
+// TODO: what problem does this function solve? why do you need it?
 void Rect::set_normalised(int left, int right, int top, int bottom) {
     x      = std::min(left, right);
     y      = std::min(top,  bottom);

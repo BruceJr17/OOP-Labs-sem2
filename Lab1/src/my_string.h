@@ -9,6 +9,13 @@
 //   - memory is freed in the destructor (and when replaced via set_new_string);
 //   - the copy constructor performs a deep copy so each object has its own buffer.
 
+
+// void foo() {
+//     char *buf;
+//     // allocate 20 bytes on heap to buf
+//     buf = malloc(20);
+// }
+
 class MyString {
 private:
     char* buf;  // heap-allocated null-terminated string

@@ -16,6 +16,7 @@ void MyString::free_buf() {
 // Default constructor: allocate a single-byte buffer holding just '\0'
 
 MyString::MyString() : buf(nullptr), len(0) {
+    // TODO: not allocate any additional memory for empty string
     buf = new char[1];
     buf[0] = '\0';
 }
@@ -23,6 +24,7 @@ MyString::MyString() : buf(nullptr), len(0) {
 MyString::MyString(const char* str) : buf(nullptr), len(0) {
     len = strlen(str);
     buf = new char[len + 1];
+    // TODO: why not: buf = new char[len];
     memcpy(buf, str, len + 1);
 }
 
