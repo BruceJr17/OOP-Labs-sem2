@@ -87,3 +87,4 @@ void MyString::read_line() {
     }
     buf[len] = '\0';
 }
+// Fixed: default constructor no longer allocates heap memory
