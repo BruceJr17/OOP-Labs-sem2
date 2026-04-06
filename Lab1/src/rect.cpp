@@ -2,6 +2,7 @@
 #include <algorithm>
 using namespace std;
 // TODO: what problem does this function solve? why do you need it?
+// answer: It normalizes the coordinates so that regardless of the order the user passes them in, the rectangle always ends up with:
 void Rect::set_normalised(int left, int right, int top, int bottom) {
     x      = std::min(left, right);
     y      = std::min(top,  bottom);
