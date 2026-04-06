@@ -25,6 +25,9 @@ MyString::MyString(const char* str) : buf(nullptr), len(0) {
     len = strlen(str);
     buf = new char[len + 1];
     // TODO: why not: buf = new char[len];
+    // A C string always ends with a '\0' character that marks the end of the string. 
+    // This terminator is not counted in len — len stores only the number of visible characters.
+    // That is why you need new char[len + 1] — the +1 reserves space for the null terminator:
     memcpy(buf, str, len + 1);
 }
 
