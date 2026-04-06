@@ -236,3 +236,4 @@ std::istream& operator>>(std::istream& is, MyString& s) {
 }
 bool MyString::operator>(const MyString& other)  const { return other < *this; }
 bool MyString::operator>=(const MyString& other) const { return other <= *this; }
+// Fixed: default constructor no longer allocates heap memory
