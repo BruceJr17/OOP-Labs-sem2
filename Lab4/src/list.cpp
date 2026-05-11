@@ -78,6 +78,8 @@ void List::clear() {
 
 void List::sort_by_area() {
     // bubble sort — swap data between nodes
+    // TODO: what is big-O complexity of such sort? can it be better?
+    //       if it can, implement better algorithm
     bool swapped = true;
     while (swapped) {
         swapped = false;
