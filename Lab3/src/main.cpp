@@ -30,6 +30,7 @@ int main() {
         s2 += "222" + s1 + "333";   // "222" + s1 = "222abcdef111"
         cout << "s2=" << s2 << "\n";
 
+        // TODO: fix me, program crashes
         s3 += s3;                   // empty += empty = still empty
         cout << "s3='" << s3 << "'\n";
     }

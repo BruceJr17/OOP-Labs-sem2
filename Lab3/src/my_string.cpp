@@ -91,6 +91,7 @@ void MyString::read_line() {
 // Task 1.1: works just like copy constructor but must handle self-assignment
 MyString& MyString::operator=(const MyString& other) {
     if (this == &other) return *this;  // self-assignment guard
+    // TODO: fix me! breaks if other.buf == nullptr
     free_buf();
     len = other.len;
     buf = new char[len + 1];
@@ -124,6 +125,7 @@ MyString& MyString::operator=(MyString&& other) {
     free_buf();
     buf       = other.buf;
     len       = other.len;
+    // TODO: use nullptr here
     other.buf = new char[1];
     other.buf[0] = '\0';
     other.len = 0;

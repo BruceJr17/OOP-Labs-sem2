@@ -46,6 +46,9 @@ private:
         }
 
         // logical operators so  !ar[i]  and  ar[i] && ar[j]  work
+        // TODO: check, if the program stops compiling if you remove the
+        //       following operators
+        // TODO: explain why
         bool operator!()              const { return !(bool)*this; }
         bool operator&&(bool other)   const { return (bool)*this && other; }
         bool operator||(bool other)   const { return (bool)*this || other; }

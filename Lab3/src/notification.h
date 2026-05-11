@@ -38,6 +38,8 @@ protected:
 public:
     NotificationQueue();
     virtual ~NotificationQueue();
+    // TODO: what is big-O complexity of `push` and `pop` here? Can it be
+    //       better?
     void             push(const Notification& n);
     virtual Notification pop();
     int              size() const { return count; }
@@ -58,5 +60,7 @@ private:
     static int type_rank(const Notification& n);
 public:
     NotificationPriorityQueue() {}
+    // TODO: what is big-O complexity of `push` and `pop` here? Can it be
+    //       better?
     Notification pop() override;
 };

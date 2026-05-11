@@ -22,6 +22,8 @@ static WorkerNode* find_node(WorkerNode *head, const MyString& key) {
     return nullptr;
 }
 
+// TODO: what is big-O complexity of this operation (in terms of number of
+//       entries in collection)? Can it be better?
 WorkerData& WorkerDb::operator[](const MyString& last_name) {
     WorkerNode *node = find_node(head, last_name);
     if (node) return node->value;
