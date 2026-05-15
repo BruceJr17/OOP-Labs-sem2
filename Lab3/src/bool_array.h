@@ -49,6 +49,12 @@ private:
         // TODO: check, if the program stops compiling if you remove the
         //       following operators
         // TODO: explain why
+
+        // If removed, expressions like !ar[i] and ar[i] && ar[j] break.
+        // Without them the compiler tries to use operator bool() implicitly
+        // but cannot apply built-in !, &&, || directly to a BitProxy rvalue.
+        // Defining them explicitly ensures correct bit reading every time.
+
         bool operator!()              const { return !(bool)*this; }
         bool operator&&(bool other)   const { return (bool)*this && other; }
         bool operator||(bool other)   const { return (bool)*this || other; }

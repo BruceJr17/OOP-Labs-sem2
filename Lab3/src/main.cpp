@@ -233,7 +233,7 @@ int main() {
 
         ar1[4] = ar1[6] = true;
 
-        ar1[2] = (!ar1[6] && ar1[8] || (ar1[0] != true));
+        ar1[2] = ((!ar1[6] && ar1[8]) || (ar1[0] != true));
 
         cout << "ar1: [";
         for (int i = 0; i < ar1.size(); i++) {
