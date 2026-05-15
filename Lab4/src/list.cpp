@@ -30,19 +30,19 @@ List::~List() {
     clear();
 }
 
-void List::push_front(const Circle* c) {
-    new Node(&Head, Head.pNext, c);
+void List::push_front(const Circle& c) {
+    new Node(&Head, Head.pNext, &c);
     m_size++;
 }
 
-void List::push_back(const Circle* c) {
-    new Node(Tail.pPrev, &Tail, c);
+void List::push_back(const Circle& c) {
+    new Node(Tail.pPrev, &Tail, &c);
     m_size++;
 }
 
-bool List::remove_first(const Circle* c) {
+bool List::remove_first(const Circle& c) {
     for (Node* cur = Head.pNext; cur != &Tail; cur = cur->pNext) {
-        if (cur->m_Data == *c) {
+        if (cur->m_Data == c) {
             delete cur;
             m_size--;
             return true;
@@ -51,12 +51,12 @@ bool List::remove_first(const Circle* c) {
     return false;
 }
 
-int List::remove_all(const Circle* c) {
+int List::remove_all(const Circle& c) {
     int count = 0;
     Node* cur = Head.pNext;
     while (cur != &Tail) {
         Node* next = cur->pNext;
-        if (cur->m_Data == *c) {
+        if (cur->m_Data == c) {
             delete cur;
             m_size--;
             count++;
@@ -80,6 +80,12 @@ void List::sort_by_area() {
     // bubble sort — swap data between nodes
     // TODO: what is big-O complexity of such sort? can it be better?
     //       if it can, implement better algorithm
+
+    // Bubble sort is O(n^2) — for each pass it compares adjacent elements.
+    // It could be better: merge sort on a linked list is O(n log n)
+    // and works efficiently without random access.
+    // For small lists bubble sort is acceptable.
+
     bool swapped = true;
     while (swapped) {
         swapped = false;
@@ -108,26 +114,21 @@ std::ostream& operator<<(std::ostream& os, const List& l) {
     return os;
 }
 
-void List::write_to_file(const char* filename) const {
-    std::ofstream fout(filename);
-    fout << m_size << "\n";
+void List::write_to_stream(std::ostream& os) const {
+    os << m_size << "\n";
     for (Node* cur = Head.pNext; cur != &Tail; cur = cur->pNext) {
-        fout << cur->m_Data << "\n";
+        os << cur->m_Data << "\n";
     }
-    fout.close();
 }
 
-void List::read_from_file(const char* filename) {
-    std::ifstream fin(filename);
-    if (!fin) return;
+void List::read_from_stream(std::istream& is) {
     clear();
     int n;
-    fin >> n;
+    is >> n;
     for (int i = 0; i < n; i++) {
         Circle c;
-        fin >> c;
-        push_back(&c);
+        is >> c;
+        push_back(c);
     }
-    fin.close();
 }
 
