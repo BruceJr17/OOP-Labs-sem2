@@ -26,6 +26,53 @@ List::List() : m_size(0) {
     Tail.pPrev = &Head;
 }
 
+// Copy constructor
+List::List(const List& other) : m_size(0) {
+    Head.pNext = &Tail;
+    Tail.pPrev = &Head;
+    for (Node* cur = other.Head.pNext; cur != &other.Tail; cur = cur->pNext) {
+        push_back(cur->m_Data);
+    }
+}
+
+// Move constructor
+List::List(List&& other) : m_size(other.m_size) {
+    Head.pNext = other.Head.pNext;
+    Tail.pPrev = other.Tail.pPrev;
+    Head.pNext->pPrev = &Head;
+    Tail.pPrev->pNext = &Tail;
+    other.Head.pNext = &other.Tail;
+    other.Tail.pPrev = &other.Head;
+    other.m_size = 0;
+}
+
+// Copy assignment operator
+List& List::operator=(const List& other) {
+    if (this != &other) {
+        clear();
+        for (Node* cur = other.Head.pNext; cur != &other.Tail; cur = cur->pNext) {
+            push_back(cur->m_Data);
+        }
+    }
+    return *this;
+}
+
+// Move assignment operator
+List& List::operator=(List&& other) {
+    if (this != &other) {
+        clear();
+        Head.pNext = other.Head.pNext;
+        Tail.pPrev = other.Tail.pPrev;
+        Head.pNext->pPrev = &Head;
+        Tail.pPrev->pNext = &Tail;
+        m_size = other.m_size;
+        other.Head.pNext = &other.Tail;
+        other.Tail.pPrev = &other.Head;
+        other.m_size = 0;
+    }
+    return *this;
+}
+
 List::~List() {
     clear();
 }
