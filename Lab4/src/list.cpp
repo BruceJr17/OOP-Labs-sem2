@@ -86,7 +86,22 @@ void List::sort_by_area() {
     // and works efficiently without random access.
     // For small lists bubble sort is acceptable.
 
-    bool swapped = true;
+    // Insertion sort O(n^2) worst case, better than bubble sort in practice.
+    if (m_size < 2) return;
+    Node* cur = Head.pNext->pNext;
+    while (cur != &Tail) {
+        Node* next = cur->pNext;
+        Circle key = cur->m_Data;
+        Node* pos = cur->pPrev;
+        while (pos != &Head && pos->m_Data.area() > key.area()) {
+            pos->pNext->m_Data = pos->m_Data;
+            pos = pos->pPrev;
+        }
+        pos->pNext->m_Data = key;
+        cur = next;
+    }
+
+  /*bool swapped = true;
     while (swapped) {
         swapped = false;
         for (Node* cur = Head.pNext; cur->pNext != &Tail; cur = cur->pNext) {
@@ -97,8 +112,8 @@ void List::sort_by_area() {
                 swapped = true;
             }
         }
-    }
-}
+    } */
+} 
 
 void List::print() const {
     std::cout << *this;

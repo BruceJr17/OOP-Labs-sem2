@@ -3,11 +3,8 @@
 #include <cmath>
 
 Circle::Circle() : center(0, 0), radius(0) {}
-
 Circle::Circle(double x, double y, double r) : center(x, y), radius(r) {}
-
 Circle::Circle(const Point& c, double r) : center(c), radius(r) {}
-
 Circle::Circle(const Circle& other) : center(other.center), radius(other.radius) {}
 
 double Circle::area() const {
@@ -39,5 +36,3 @@ std::istream& operator>>(std::istream& is, Circle& c) {
     c = Circle(x, y, r);
     return is;
 }
-
-
