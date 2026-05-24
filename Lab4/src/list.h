@@ -60,7 +60,10 @@ public:
     Iterator begin() { return Iterator(Head.pNext); }
     Iterator end()   { return Iterator(&Tail); }
 
-    void sort_by_area();
+    void sort_by_area();           // insertion sort (current)
+    void sort_bubble();            // bubble sort (old)
+    void sort_insertion_ptr();     // insertion sort by pointer manipulation
+    void sort_merge();             // merge sort O(n log n)
     void print() const;
 
     friend std::ostream& operator<<(std::ostream& os, const List& l);
