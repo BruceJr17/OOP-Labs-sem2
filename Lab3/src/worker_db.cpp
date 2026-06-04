@@ -22,6 +22,13 @@ static WorkerNode* find_node(WorkerNode *head, const MyString& key) {
     return nullptr;
 }
 
+// TODO: what is big-O complexity of this operation (in terms of number of
+//       entries in collection)? Can it be better?
+
+// O(n) — find_node walks the linked list one node at a time.
+// Could be O(1) average with a hash map (std::unordered_map),
+// or O(log n) with a balanced BST (std::map).
+
 WorkerData& WorkerDb::operator[](const MyString& last_name) {
     WorkerNode *node = find_node(head, last_name);
     if (node) return node->value;

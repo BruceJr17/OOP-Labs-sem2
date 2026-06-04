@@ -30,6 +30,7 @@ int main() {
         s2 += "222" + s1 + "333";   // "222" + s1 = "222abcdef111"
         cout << "s2=" << s2 << "\n";
 
+        // TODO: fix me, program crashes
         s3 += s3;                   // empty += empty = still empty
         cout << "s3='" << s3 << "'\n";
     }
@@ -232,7 +233,7 @@ int main() {
 
         ar1[4] = ar1[6] = true;
 
-        ar1[2] = (!ar1[6] && ar1[8] || (ar1[0] != true));
+        ar1[2] = ((!ar1[6] && ar1[8]) || (ar1[0] != true));
 
         cout << "ar1: [";
         for (int i = 0; i < ar1.size(); i++) {

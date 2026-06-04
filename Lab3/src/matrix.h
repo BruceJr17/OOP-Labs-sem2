@@ -22,12 +22,25 @@ public:
     Matrix& operator=(Matrix&& other);      // move assign  (Task 1.3)
 
     // ── compound assignment operators ─────────────────────────────────────
+    // TODO: why is there all return values are marked with `&` and why they are
+    // not marked in the next section?
+
+    // Compound operators return Matrix& (reference to *this) because they
+    // modify the existing object and allow chaining: (m1 += m2) -= m3.
+    // Binary operators return Matrix by value because they return a NEW
+    // matrix — you cannot return a reference to a local variable.
+
     Matrix& operator+=(const Matrix& other); // Task 1.2.1
     Matrix& operator-=(const Matrix& other);
     Matrix& operator*=(double scalar);
     Matrix& operator/=(double scalar);
 
     // ── binary arithmetic operators ───────────────────────────────────────
+    // TODO: what does the outer const mean?
+
+    // The trailing const means this method does not modify *this.
+    // It allows calling + on const Matrix objects.
+
     Matrix operator+(const Matrix& other) const; // Task 1.2.2
     Matrix operator-(const Matrix& other) const;
     Matrix operator*(const Matrix& other) const;

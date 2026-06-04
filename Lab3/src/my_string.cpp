@@ -91,10 +91,15 @@ void MyString::read_line() {
 // Task 1.1: works just like copy constructor but must handle self-assignment
 MyString& MyString::operator=(const MyString& other) {
     if (this == &other) return *this;  // self-assignment guard
+    // TODO: fix me! breaks if other.buf == nullptr
     free_buf();
     len = other.len;
-    buf = new char[len + 1];
-    memcpy(buf, other.buf, len + 1);
+    if (other.buf) {
+        buf = new char[len + 1];
+        memcpy(buf, other.buf, len + 1);
+    } else {
+        buf = nullptr;
+    }
     return *this;
 }
 
@@ -124,8 +129,8 @@ MyString& MyString::operator=(MyString&& other) {
     free_buf();
     buf       = other.buf;
     len       = other.len;
-    other.buf = new char[1];
-    other.buf[0] = '\0';
+    // TODO: use nullptr here
+    other.buf = nullptr;
     other.len = 0;
     return *this;
 }
@@ -133,9 +138,10 @@ MyString& MyString::operator=(MyString&& other) {
 // ── concatenation operators ───────────────────────────────────────────────────
 // Task 1.2.4: += appends to this string
 MyString& MyString::operator+=(const MyString& other) {
+    if (other.len == 0 || !other.buf) return *this;
     int new_len = len + other.len;
     char* new_buf = new char[new_len + 1];
-    memcpy(new_buf,       buf,       len);
+    if (buf) memcpy(new_buf, buf, len);
     memcpy(new_buf + len, other.buf, other.len + 1);
     free_buf();
     buf = new_buf;

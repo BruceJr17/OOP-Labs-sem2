@@ -28,3 +28,7 @@ test: build/test.out
 
 clean:
 	rm -f build/*.o build/*.out
+build/benchmark.out: $(OBJS) tests/benchmark.cpp
+	$(CXX) $(CXXFLAGS) -o build/benchmark.out tests/benchmark.cpp $(OBJS)
+benchmark: build/benchmark.out
+	./build/benchmark.out

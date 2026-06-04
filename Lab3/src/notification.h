@@ -38,6 +38,12 @@ protected:
 public:
     NotificationQueue();
     virtual ~NotificationQueue();
+    // TODO: what is big-O complexity of `push` and `pop` here? Can it be
+    //       better?
+
+    // push is O(1) — tail pointer means appending is instant.
+    // pop is O(1) — always removes from head.
+
     void             push(const Notification& n);
     virtual Notification pop();
     int              size() const { return count; }
@@ -58,5 +64,12 @@ private:
     static int type_rank(const Notification& n);
 public:
     NotificationPriorityQueue() {}
+    // TODO: what is big-O complexity of `push` and `pop` here? Can it be
+    //       better?
+
+    // push is O(1) — just appends to the list.
+    // pop is O(n) — must scan whole list to find highest priority node.
+    // Could be O(log n) with a heap (std::priority_queue) instead.
+
     Notification pop() override;
 };
